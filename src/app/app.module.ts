@@ -27,7 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
-    MatToolBa
+    MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
