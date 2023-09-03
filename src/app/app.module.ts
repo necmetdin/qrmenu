@@ -27,11 +27,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
+   /* MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule,
+    MatDividerModule,*/
   ],
   exports:[
     
