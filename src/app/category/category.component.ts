@@ -1,124 +1,89 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../shared/services/api.service';
+
+import { environment } from '../environments/environment';
+import { Categories } from '../shared/models/Categories';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
+
 export class CategoryComponent implements OnInit {
-  listChildChanged = [];
-  arr = [
+
+  constructor(
+    private apiService: ApiService,
+    private router: Router
+    ) {}
+    language ='tr';    
+    categories: any;
+    ngOnInit() {
+      this.get();
+      
+    /*  this.apiService.RequiredRefresh.subscribe((r) => {
+        this.get();
+      });*/
+    }
+    getLanguage()
     {
-      id: "group_1",
-      name: "Group 1",
-      items: [
+      switch (this.language) {
+        case 'de':
         {
-          id: "group_1.abc",
-          name: "ABC",
-          checked: false,
-          expand: true,
-          childs: [
-            {
-              id: "group_1.abc.action_See_List",
-              name: "See List",
-              checked: false
-            },
-            {
-              id: "group_1.abc.action_Edit",
-              name: "Edit",
-              checked: false
-            },
-            {
-              id: "group_1.abc.action_Delete",
-              name: "Delete",
-              checked: false
-            },
-            {
-              id: "group_1.abc.action_Print",
-              name: "Print",
-              checked: false
-            }
-          ]
-        },
-        {
-          id: "group_1.def",
-          name: "DEF",
-          checked: false,
-          expand: true,
-          childs: [
-            {
-              id: "group_1.def.action_See_List",
-              name: "See List",
-              checked: false
-            },
-            {
-              id: "group_1.def.action_Edit",
-              name: "Edit",
-              checked: false
-            },
-            {
-              id: "group_1.def.action_Delete",
-              name: "Delete",
-              checked: false
-            },
-            {
-              id: "group_1.def.action_Print",
-              name: "Print",
-              checked: false
-            }
-          ]
+          return 2;
+          
         }
-      ]
-    },
-    
-  ];
-
-  checkMinusSquare(item : any) {
-    const count = item.childs.filter((x: { checked: boolean; }) => x.checked == true).length;
-    if (count > 0 && count < item.childs.length) {
-      return true;
-    } else if (count == 0) {
-      return false;
-    }
-    return false;
-  }
-
-  checkParent(group_i: any, i:  any) {
- /*  this.arr[group_i].items[i].checked = !this.arr[group_i].items[i].checked;
-    if (this.arr[group_i].items[i].checked) {
-      this.arr[group_i].items[i].childs.map(x => (x.checked = true));
-    } else {
-      this.arr[group_i].items[i].childs.map(x => (x.checked = false));
-    }
-    this.arr[group_i].items[i].childs.forEach(x => {
-      if (this.listChildChanged.findIndex(el => el.id == x.id) == -1) {
-        this.listChildChanged.push(x);
+        case 'en':
+        {
+          return  3;
+          
+        }
+        case 'ru':
+        {
+          return  4;
+           
+        }
+      
+        default:
+          return  1;
+         
       }
-    });*/
-  }
-
-  checkChild(group_i: string | number, parent_i: string | number, i: string | number) {
-  /*  this.arr[group_i].items[parent_i].childs[i].checked = !this.arr[group_i]
-      .items[parent_i].childs[i].checked;
-    const count = this.arr[group_i].items[parent_i].childs.filter(
-      el => el.checked == true
-    ).length;
-    if (count == this.arr[group_i].items[parent_i].childs.length) {
-      this.arr[group_i].items[parent_i].checked = true;
-    } else {
-      this.arr[group_i].items[parent_i].checked = false;
     }
-    if (this.listChildChanged.findIndex(el => el.id == this.arr[group_i].items[parent_i].childs[i].id) == -1) {
-      this.listChildChanged.push(this.arr[group_i].items[parent_i].childs[i]);
-    }*/
-  }
+    get() {
 
-  getListChildChanged() {
-    console.log(this.listChildChanged);
-  }
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+    
+  
+    this.language = localStorage.getItem("language") || 'tr';
+      
+      this.apiService
+        .makeGetRequest<Categories>(
+          environment.endpointUrl +
+            'api/groups/list/'
+        )
+        .subscribe({
+          next: (result) => {
+            
+            this.categories = result;
+            this.categories.forEach((element: any) => {
+              
+              element.DESCRIPTION = 'ww';
+            });
+            //console.log(this.myCat);
+            
+                      
+          },
+          error: (e) => {
+            console.log(e);
+          },
+        });
+      
+    }
+    
+    openCategory(id: any)
+    {
+      this.router.navigate(['/producten/5']);
+    }
 }
+

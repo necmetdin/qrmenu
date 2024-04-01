@@ -1,0 +1,57 @@
+:host {
+  position: fixed;
+  bottom: 50px;
+  z-index: 7;
+  display: block;
+  visibility: hidden;
+  width: 50px;
+  height: 50px;
+  right: 25px;
+
+  cursor: pointer;
+  background: url(/assets/images/up.png) no-repeat 50% 50%;
+  background-color: #b79a00;
+  opacity: 0;
+  transition: visibility .6s cubic-bezier(0.6, 0.04, 0.98, 0.335), opacity .6s cubic-bezier(0.6, 0.04, 0.98, 0.335), transform .6s cubic-bezier(0.6, 0.04, 0.98, 0.335), height .6s ease-in-out;
+
+  i {
+    display: none;
+    margin-top: 48px;
+    height: 14px;
+  /*  background: url(/assets/images/up.png) no-repeat 50% 50%;*/
+    background-color:  #e0cd66;
+    opacity: .5;
+    transition: transform .2s;
+    transform-origin: 50% 0;
+  }
+
+  /*&:hover {
+    background-position: 50% -62px;
+
+    i {
+      background-position: 50% 100%;
+      animation: flaming .7s infinite;
+    }
+  }*/
+
+  &.showrocket {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &.launchrocket {
+    background-position: 50% -62px;
+    opacity: 0;
+    transform: translateY(-800px);
+    pointer-events: none;
+
+    i {
+      background-position: 50% 100%;
+      transform: scale(1.4, 3.2);
+    }
+  }
+
+  &.hide {
+    height: 0px;
+  }
+}
